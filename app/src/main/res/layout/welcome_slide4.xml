@@ -137,11 +137,13 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle_screen4"
                 android:padding="5dp"
-                android:text="mirror"
-                android:id="@+id/mirror"
+                android:text="the-new-york-times"
+                android:id="@+id/the_newyork_times"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textSize="15sp" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -219,6 +221,115 @@
                 android:padding="5dp"
                 android:text="the-guardian-uk"
                 android:id="@+id/the_guardian_uk"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle_screen4"
+                android:padding="5dp"
+                android:id="@+id/the_hindu"
+                android:text="the-hindu"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle_screen4"
+                android:padding="5dp"
+                android:text="the-huffington-post"
+                android:id="@+id/the_huffington_post"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_screen4"
+                android:padding="5dp"
+                android:text="mirror"
+                android:id="@+id/mirror"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle_screen4"
+                android:padding="5dp"
+                android:id="@+id/the_telegraph"
+                android:text="the-telegraph"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle_screen4"
+                android:padding="5dp"
+                android:text="the-times-of-india"
+                android:id="@+id/the_times_of_india"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_screen4"
+                android:padding="5dp"
+                android:text="time"
+                android:id="@+id/time"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle_screen4"
+                android:padding="5dp"
+                android:text="the-washington-post"
+                android:id="@+id/the_washington_post"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_screen4"
+                android:padding="5dp"
+                android:text="usa-today"
+                android:id="@+id/usa_today"
                 android:textColor="@android:color/white"
                 android:textAlignment="center"
                 android:textSize="15sp" />

@@ -270,6 +270,34 @@ public class WelcomeActivity extends AppCompatActivity {
                 newyork_magazine.setOnClickListener(this);
                 final TextView reddit_r_all = (TextView) view.findViewById(R.id.reddit_r_all);
                 reddit_r_all.setOnClickListener(this);
+                final TextView reuters = (TextView) view.findViewById(R.id.reuters);
+                reuters.setOnClickListener(this);
+                final TextView the_guardian_au = (TextView) view.findViewById(R.id.the_guardian_au);
+                the_guardian_au.setOnClickListener(this);
+                final TextView the_guardian_uk = (TextView) view.findViewById(R.id.the_guardian_uk);
+                the_guardian_uk.setOnClickListener(this);
+                final TextView the_hindu = (TextView) view.findViewById(R.id.the_hindu);
+                the_hindu.setOnClickListener(this);
+                final TextView the_newyork_times = (TextView) view.findViewById(R.id.the_newyork_times);
+                the_newyork_times.setOnClickListener(this);
+                final TextView the_huffington_post = (TextView) view.findViewById(R.id.the_huffington_post);
+                the_huffington_post.setOnClickListener(this);
+                final TextView the_telegraph = (TextView) view.findViewById(R.id.the_telegraph);
+                the_telegraph.setOnClickListener(this);
+                final TextView the_times_of_india = (TextView) view.findViewById(R.id.the_times_of_india);
+                the_times_of_india.setOnClickListener(this);
+                final TextView time = (TextView) view.findViewById(R.id.time);
+                time.setOnClickListener(this);
+                final TextView the_washington_post = (TextView) view.findViewById(R.id.the_washington_post);
+                the_washington_post.setOnClickListener(this);
+                final TextView usa_today = (TextView) view.findViewById(R.id.usa_today);
+                usa_today.setOnClickListener(this);
+            }
+            else if(position==4){
+                final TextView mtv_news = (TextView) view.findViewById(R.id.mtv_news);
+                mtv_news.setOnClickListener(this);
+                final TextView mtv_news_uk = (TextView) view.findViewById(R.id.mtv_news_uk);
+                mtv_news_uk.setOnClickListener(this);
             }
             return view;
         }

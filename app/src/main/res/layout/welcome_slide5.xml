@@ -24,6 +24,36 @@
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="mtv-news"
+                android:id="@+id/mtv_news"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="mtv-news-uk"
+                android:id="@+id/mtv_news_uk"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
 
     </LinearLayout>
 </RelativeLayout>

@@ -24,6 +24,24 @@
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle_screen2"
+                android:padding="5dp"
+                android:text="breitbart-news"
+                android:id="@+id/breitbart_news"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

@@ -293,11 +293,41 @@ public class WelcomeActivity extends AppCompatActivity {
                 final TextView usa_today = (TextView) view.findViewById(R.id.usa_today);
                 usa_today.setOnClickListener(this);
             }
-            else if(position==4){
+            else if(position==5){
                 final TextView mtv_news = (TextView) view.findViewById(R.id.mtv_news);
                 mtv_news.setOnClickListener(this);
                 final TextView mtv_news_uk = (TextView) view.findViewById(R.id.mtv_news_uk);
                 mtv_news_uk.setOnClickListener(this);
+            }
+            else if(position==6){
+                final TextView breitbart_news = (TextView) view.findViewById(R.id.breitbart_news);
+                breitbart_news.setOnClickListener(this);
+            }
+            else if(position==7){
+                final TextView new_scientist = (TextView) view.findViewById(R.id.new_scientist);
+                new_scientist.setOnClickListener(this);
+                final TextView national_geographic = (TextView) view.findViewById(R.id.national_geographic);
+                national_geographic.setOnClickListener(this);
+            }
+            else if(position==8){
+                final TextView bbc_sport = (TextView) view.findViewById(R.id.bbc_sport);
+                bbc_sport.setOnClickListener(this);
+                final TextView espn = (TextView) view.findViewById(R.id.espn);
+                espn.setOnClickListener(this);
+                final TextView espn_cric_info = (TextView) view.findViewById(R.id.espn_cric_info);
+                espn_cric_info.setOnClickListener(this);
+                final TextView football_italia = (TextView) view.findViewById(R.id.football_italia);
+                football_italia.setOnClickListener(this);
+                final TextView four_four_two = (TextView) view.findViewById(R.id.four_four_two);
+                four_four_two.setOnClickListener(this);
+                final TextView fox_sports = (TextView) view.findViewById(R.id.fox_sports);
+                fox_sports.setOnClickListener(this);
+                final TextView nfl_news = (TextView) view.findViewById(R.id.nfl_news);
+                nfl_news.setOnClickListener(this);
+                final TextView talksport = (TextView) view.findViewById(R.id.talksport);
+                talksport.setOnClickListener(this);
+                final TextView the_sport_bible = (TextView) view.findViewById(R.id.the_sport_bible);
+                the_sport_bible.setOnClickListener(this);
             }
             return view;
         }

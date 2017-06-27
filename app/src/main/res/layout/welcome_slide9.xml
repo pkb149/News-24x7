@@ -24,5 +24,114 @@
             android:textSize="@dimen/slide_title"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="ars-technica"
+                android:id="@+id/ars_technica"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="engadget"
+                android:id="@+id/engadget"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="hacker-news"
+                android:id="@+id/hacker_news"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="recode"
+                android:id="@+id/recode"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="techcrunch"
+                android:id="@+id/techcrunch"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="techradar"
+                android:id="@+id/techradar"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="the-next-web"
+                android:id="@+id/the_next_web"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:padding="5dp"
+                android:text="the-verge"
+                android:id="@+id/the_verge"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+        </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

@@ -329,6 +329,25 @@ public class WelcomeActivity extends AppCompatActivity {
                 final TextView the_sport_bible = (TextView) view.findViewById(R.id.the_sport_bible);
                 the_sport_bible.setOnClickListener(this);
             }
+
+            else if(position==9){
+                final TextView ars_technica = (TextView) view.findViewById(R.id.ars_technica);
+                ars_technica.setOnClickListener(this);
+                final TextView engadget = (TextView) view.findViewById(R.id.engadget);
+                engadget.setOnClickListener(this);
+                final TextView hacker_news = (TextView) view.findViewById(R.id.hacker_news);
+                hacker_news.setOnClickListener(this);
+                final TextView recode = (TextView) view.findViewById(R.id.recode);
+                recode.setOnClickListener(this);
+                final TextView techcrunch = (TextView) view.findViewById(R.id.techcrunch);
+                techcrunch.setOnClickListener(this);
+                final TextView techradar = (TextView) view.findViewById(R.id.techradar);
+                techradar.setOnClickListener(this);
+                final TextView the_next_web = (TextView) view.findViewById(R.id.the_next_web);
+                the_next_web.setOnClickListener(this);
+                final TextView the_verge = (TextView) view.findViewById(R.id.the_verge);
+                the_verge.setOnClickListener(this);
+            }
             return view;
         }
 

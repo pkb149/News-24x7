@@ -21,7 +21,7 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     private int[] imageResId = {
             R.drawable.ic_home_white_24dp,
             R.drawable.ic_trending_up_white_24dp,
-            R.drawable.saved
+            R.drawable.save_tab
     };
 
     public MainActivityPagerAdapter(FragmentManager fragmentManager, Context context){
@@ -34,9 +34,9 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new MainActivityTab1();
             case 1:
-                return new MainActivityTab1();
+                return new MainActivityTab2();
             case 2:
-                return new MainActivityTab1();
+                return new MainActivityTab3();
             default:
                 return null;
         }

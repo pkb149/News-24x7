@@ -30,7 +30,7 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/desc_padding"
             android:paddingRight="@dimen/desc_padding"
-            android:text="Scroll right to pick News channels from categories like business, sports and so on.\n Skip to use default News channels."
+            android:text="Scroll right to pick a minimum of 5 News channels from categories like business, sports and so on.\n Skip to use default News channels."
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="@dimen/slide_desc" />

@@ -13,6 +13,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -33,20 +35,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button btnSkip, btnNext;
     private PrefManager prefManager;
     private SQLiteDatabase mDb;
-
-    public void queryExec(TextView tv, int status){
-        Cursor c = mDb.rawQuery("SELECT * FROM sources WHERE source = '"+tv.getText().toString().trim()+"'", null);
-        if(c==null) {
-            ContentValues cv = new ContentValues();
-            cv.put("source", tv.getText().toString().trim());
-            cv.put("status", 1);
-            mDb.insert("sources", null, cv);
-        }
-        else{
-            String strSQL = "UPDATE sources SET status = 1 WHERE source = '"+ tv.getText().toString().trim()+"'";
-            mDb.execSQL(strSQL);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +91,18 @@ public class WelcomeActivity extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO
+                mDb.execSQL("DELETE FROM sources");
+                ContentValues cv = new ContentValues();
+                String[] str={"fortune","entertainment-weekly","the-telegraph","ign","bbc-news","reuters",
+                        "the-hindu","time","the-times-of-india","mtv-news","bbc-sport",
+                        "techradar","the-verge"};
+                for(int i=0;i<str.length;i++)
+                {
+                    cv.put("source", str[i]);
+                    cv.put("status", 1);
+                    mDb.insert("sources", null, cv);
+                }
                 launchHomeScreen();
             }
         });
@@ -117,7 +117,15 @@ public class WelcomeActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    launchHomeScreen();
+
+                    Cursor c = mDb.rawQuery("SELECT * FROM sources", null);
+                    if(c.getCount()<5){
+                        Toast.makeText(getApplicationContext(),"Please select at least 5 channels!\nSkip for default settings",Toast.LENGTH_LONG).show();
+                        viewPager.setCurrentItem(0);
+                    }
+                    else {
+                        launchHomeScreen();
+                    }
                 }
             }
         });
@@ -376,15 +384,17 @@ public class WelcomeActivity extends AppCompatActivity {
                 tv.setTextSize(15);
                 v.setSelected(false);
                 Cursor c = mDb.rawQuery("SELECT * FROM sources WHERE source = '"+tv.getText().toString().trim()+"'", null);
-                if(c==null) {
+                if(c.getCount()==0) {
                     ContentValues cv = new ContentValues();
                     cv.put("source", tv.getText().toString().trim());
                     cv.put("status", 0);
                     mDb.insert("sources", null, cv);
+                    Log.e(this.toString(),"Insterted into DB with 0");
                 }
                 else{
                     String strSQL = "UPDATE sources SET status = 0 WHERE source = '"+ tv.getText().toString().trim()+"'";
                     mDb.execSQL(strSQL);
+                    Log.e(this.toString(),"Updated the DB with 0");
                 }
             }
             else
@@ -393,15 +403,17 @@ public class WelcomeActivity extends AppCompatActivity {
                 tv.setTextSize(18);
                 v.setSelected(true);
                 Cursor c = mDb.rawQuery("SELECT * FROM sources WHERE source = '"+tv.getText().toString().trim()+"'", null);
-                if(c==null) {
+                if(c.getCount()==0) {
                     ContentValues cv = new ContentValues();
                     cv.put("source", tv.getText().toString().trim());
                     cv.put("status", 1);
                     mDb.insert("sources", null, cv);
+                    Log.e(this.toString(),"Insterted into DB with 1");
                 }
                 else{
                     String strSQL = "UPDATE sources SET status = 1 WHERE source = '"+ tv.getText().toString().trim()+"'";
                     mDb.execSQL(strSQL);
+                    Log.e(this.toString(),"Updated with 1");
                 }
 
             }

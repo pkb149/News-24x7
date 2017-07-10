@@ -30,6 +30,8 @@ public class NewsDB {
 
         // Task table and column names
         public static final String TABLE_NAME = "news";
+        public static final String TABLE_NAME_SAVED = "saved";
+        public static final String TABLE_NAME_TRENDING = "trending";
 
         // Since TaskEntry implements the interface "BaseColumns", it has an automatically produced
         // "_ID" column in addition to the two below
@@ -40,7 +42,11 @@ public class NewsDB {
         public static final String COLUMN_TITLE= "title";
         public static final String COLUMN_DESCRIPTION= "description";
         public static final String COLUMN_URL= "url";
+        public static final String COLUMN_IDFROMNEWS= "idNews";
+        public static final String COLUMN_IDFROMTRENDING= "idTrending";
         public static final String COLUMN_URLTOIMAGE= "urlToImage";
+        public static final String COLUMN_SAVED= "saved";
+        public static final String COLUMN_TABLE= "tableName"; //0  for news 1 for trending
 
     }
 }

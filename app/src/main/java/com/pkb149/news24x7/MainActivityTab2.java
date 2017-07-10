@@ -1,10 +1,6 @@
 package com.pkb149.news24x7;
 
-/**
- * Created by CoderGuru on 24-06-2017.
- */
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -12,12 +8,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcel;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +24,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivityTab1 extends Fragment implements AsyncResponse, RecyclerViewAdapter.NewsListItemClickListener, InterfaceToUpdateUI{
+import static com.pkb149.news24x7.MainActivityTab1.sortBy;
+
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfTrending, RecyclerViewAdapter.NewsListItemClickListener, AsyncResponse{
+    public static final String TRENDING_INTENT = "com.pkb149.news24x7.intent.action.UPDATE_TRENDING";
+    public static final String popular="top";
+    private MyReceiver receiver;
+
     private EndlessRecyclerViewScrollListener scrollListener;
     private SwipeRefreshLayout swipeRefreshLayout;
     RecyclerViewAdapter.NewsListItemClickListener listener;
@@ -39,12 +42,12 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
     List<CardViewData> data;
     RecyclerViewAdapter adapter;
     public AsyncResponse asyncResponse;
-    public ProgressBar loader;
-    public Context context;
-    public static final String sortBy="SORT_BY";
-    public static final String latest="latest";
-    public static final String CUSTOM_INTENT = "com.pkb149.news24x7.intent.action.UPDATE_HOME";
+    ProgressBar loader;
+    Context context;
 
+    public MainActivityTab2() {
+        // Required empty public constructor
+    }
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -52,38 +55,41 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private MyReceiver receiver;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.activity_main_tab1,container,false);
-        data = new ArrayList<>();
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        loader=(ProgressBar) view.findViewById(R.id.loader);
-        context=view.getContext();
-        listener=this;
-        NewsDataTask asyncTask = new NewsDataTask(getContext());
-        asyncTask.delegate = this;
-        asyncResponse=this;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
+        View view= inflater.inflate(R.layout.activity_main_tab1, container, false);
+        data = new ArrayList<>();
+        listener=this;
+        context=view.getContext();
+        loader=(ProgressBar) view.findViewById(R.id.loader);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         receiver = new MyReceiver(new Handler()); // Create the receiver
-        receiver.interfaceToUpdateUI=this;
-        getContext().registerReceiver(receiver, new IntentFilter(CUSTOM_INTENT));
+        receiver.interfaceToUpdateUiOfTrending=this;
+        getContext().registerReceiver(receiver, new IntentFilter(TRENDING_INTENT));
+
+
+       /* NewsDataTask asyncTask = new NewsDataTask(getContext());
+        asyncTask.delegate = this;
+        asyncResponse=this;*/
 
 
         if(isNetworkAvailable()){
-            asyncTask.execute("news");
+            //asyncTask.execute("trending");
             Log.e(this.toString(),"1");
             Intent intent=new Intent(getContext(),LoadDataBasedOnSelection.class);
-            intent.putExtra(sortBy, latest);
+            intent.putExtra(sortBy, popular);
             getActivity().startService(intent);
             Log.e(this.toString(),"2");
         }
         else{
             Toast.makeText(getContext(),"Internet connectivity is not available loading local data.",Toast.LENGTH_SHORT).show();
-            asyncTask.execute("news");
+            //asyncTask.execute("trending");
         }
 
-        adapter = new RecyclerViewAdapter(data, getContext(),this,1);
+        adapter = new RecyclerViewAdapter(data, getContext(),this,2);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -106,27 +112,22 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
             public void onRefresh() {
                 endlessRecyclerViewScrollListener.resetState();
                 Intent intent=new Intent(getContext(),LoadDataBasedOnSelection.class);
-                intent.putExtra(sortBy, latest);
+                intent.putExtra(sortBy, popular);
                 getActivity().startService(intent);
                 swipeRefreshLayout.setRefreshing(false);
-
             }
         });
         recyclerView.addOnScrollListener(scrollListener);
+
         return view;
     }
 
     @Override
-    public void processFinish(NewsDataTask asyncTask) {
-        data=asyncTask.simpleJsonNewsData;
-        if(data.isEmpty()){
-            Toast.makeText(getContext(),"No Local Data, Please Wait till we load data from Internet.",Toast.LENGTH_SHORT).show();
-            loader.setVisibility(View.VISIBLE);
-        }
-        else{
-            loader.setVisibility(View.INVISIBLE);
-            adapter.addAll(data);
-        }
+    public void updateUI(Context context) {
+        Log.e("MainActivity2 Boradca","called");
+        NewsDataTask asyncTask = new NewsDataTask(context);
+        asyncTask.delegate = this;
+        asyncTask.execute("trending");
     }
 
     @Override
@@ -134,33 +135,37 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
 
     }
 
-
     @Override
-    public void updateUI(Context context) {
-        Log.e("BR","called");
-
-        NewsDataTask asyncTask = new NewsDataTask(context);
-        asyncTask.delegate = this;
-        asyncTask.execute("news");
+    public void processFinish(NewsDataTask asyncTask) {
+        data=asyncTask.simpleJsonNewsData;
+        if(data.isEmpty()){
+            loader.setVisibility(View.VISIBLE);
+        }
+        else{
+            adapter.addAll(data);
+            loader.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         try{
-        context.unregisterReceiver(receiver);
+            context.unregisterReceiver(receiver);
         }
         catch (Exception e){
-           // Log.d("Some tag", Log.getStackTraceString(e.getCause().getCause()));
+            //Log.d("Some tag", Log.getStackTraceString(e.getCause().getCause()));
         }
     }
-
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            
+            NewsDataTask asyncTask = new NewsDataTask(getContext());
+            asyncTask.delegate = this;
+            asyncTask.execute("trending");
         }
     }
+
 }

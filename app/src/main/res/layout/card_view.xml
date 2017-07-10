@@ -3,54 +3,68 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="2dp"
     app:cardCornerRadius="0dp"
     app:cardElevation="8dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <ProgressBar
-            android:id="@+id/progress"
-            android:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            />
-
-        <!--<com.pkb149.giffy.PlayGifView!-->
+        android:orientation="horizontal">
         <ImageView
+            android:layout_width="0sp"
+            android:layout_height="90sp"
+            android:layout_weight="1"
             android:id="@+id/viewGif"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="100dp"/>
+            android:scaleType="center"
+            android:src="@drawable/progress_animation"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/viewGif"
-            android:id="@+id/share"
-            android:paddingRight="30dp"/>
+        <LinearLayout
+            android:layout_width="0sp"
+            android:layout_height="90sp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="2"
+                android:id="@+id/heading"
+                android:textStyle="bold"
+                android:textColor="#444444"
+                android:paddingLeft="5dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0sp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="5dp">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:id="@+id/source"
+                    android:gravity="center_vertical"/>
+
+                <ImageView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/share" />
 
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/viewGif"
-            android:id="@+id/save"
-            android:layout_alignParentRight="true"/>
+                <ImageView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/save"
+                    android:layout_marginRight="7sp"/>
+            </LinearLayout>
 
-
-    </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -21,15 +21,21 @@ public final class parseJSON {
 
         JSONObject newsJson = new JSONObject(newsJsonStr);
         JSONArray newsArray = newsJson.getJSONArray("articles");
-
         List<CardViewData> parsedNewsData = new ArrayList<CardViewData>();
+        if(newsJson.getString("status").equals("ok")){
+
         for (int i = 0; i < newsArray.length(); i++) {
             JSONObject news = newsArray.getJSONObject(i);
             if (news != null) {
-                CardViewData data=new CardViewData(Parcel.obtain());
+                CardViewData data = new CardViewData(Parcel.obtain());
                 data.setShare(R.drawable.ic_share_black_24dp);
                 data.setSave(R.drawable.save);
-                data.setAuthor(news.getString("author"));
+                if(news.getString("author").equals("null")){
+                    data.setAuthor(newsJson.getString("source"));
+                }
+                else{
+                    data.setAuthor(news.getString("author"));
+                }
                 data.setTitle(news.getString("title"));
                 data.setDescription(news.getString("description"));
                 data.setUrl(news.getString("url"));
@@ -38,6 +44,7 @@ public final class parseJSON {
                 parsedNewsData.add(data);
             }
         }
+    }
         return parsedNewsData;
     }
 }

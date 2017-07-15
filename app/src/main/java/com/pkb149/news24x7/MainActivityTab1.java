@@ -43,7 +43,9 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
     public Context context;
     public static final String sortBy="SORT_BY";
     public static final String latest="latest";
+    private static int pageNo;
     public static final String CUSTOM_INTENT = "com.pkb149.news24x7.intent.action.UPDATE_HOME";
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -61,7 +63,8 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
         loader=(ProgressBar) view.findViewById(R.id.loader);
         context=view.getContext();
         listener=this;
-        NewsDataTask asyncTask = new NewsDataTask(getContext());
+
+        NewsDataTask asyncTask = new NewsDataTask(getContext(),0);
         asyncTask.delegate = this;
         asyncResponse=this;
 
@@ -71,7 +74,7 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
 
 
         if(isNetworkAvailable()){
-            asyncTask.execute("news");
+            asyncTask.execute("news","0");
             Log.e(this.toString(),"1");
             Intent intent=new Intent(getContext(),LoadDataBasedOnSelection.class);
             intent.putExtra(sortBy, latest);
@@ -95,6 +98,11 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
                 //last thing to do..
                 //fetch only 50 records from DB at a time to insert into list
                 // and load more recored here.. 50 each
+                pageNo=page;
+                Log.e("Page","**************************************************");
+                NewsDataTask asyncTask = new NewsDataTask(context,page);
+                asyncTask.delegate = asyncResponse;
+                asyncTask.execute("news");
 
             }
         };
@@ -108,7 +116,7 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
                 Intent intent=new Intent(getContext(),LoadDataBasedOnSelection.class);
                 intent.putExtra(sortBy, latest);
                 getActivity().startService(intent);
-                swipeRefreshLayout.setRefreshing(false);
+
 
             }
         });
@@ -125,7 +133,17 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
         }
         else{
             loader.setVisibility(View.INVISIBLE);
+            Log.e("Calling Add all","Addall()");
             adapter.addAll(data);
+        }
+    }
+
+    @Override
+    public void processFinish2(NewsDataTask asyncTask) {
+        if(!asyncTask.simpleJsonNewsData.isEmpty()){
+            //data.addAll(asyncTask.simpleJsonNewsData);
+            Log.e("Calling Add all","Addall2()");
+            adapter.addAll2(asyncTask.simpleJsonNewsData);
         }
     }
 
@@ -139,9 +157,10 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
     public void updateUI(Context context) {
         Log.e("BR","called");
 
-        NewsDataTask asyncTask = new NewsDataTask(context);
+        NewsDataTask asyncTask = new NewsDataTask(context,0);
         asyncTask.delegate = this;
         asyncTask.execute("news");
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -160,7 +179,11 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            
+            if(asyncResponse!=null) {
+              NewsDataTask asyncTask = new NewsDataTask(context,pageNo);
+                  asyncTask.delegate = asyncResponse;
+                asyncTask.execute("news");
+            }
         }
     }
 }

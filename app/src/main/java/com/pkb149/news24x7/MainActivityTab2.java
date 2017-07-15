@@ -44,6 +44,7 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
     public AsyncResponse asyncResponse;
     ProgressBar loader;
     Context context;
+    int pageNo;
 
     public MainActivityTab2() {
         // Required empty public constructor
@@ -64,6 +65,7 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
         data = new ArrayList<>();
         listener=this;
         context=view.getContext();
+        asyncResponse=this;
         loader=(ProgressBar) view.findViewById(R.id.loader);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         receiver = new MyReceiver(new Handler()); // Create the receiver
@@ -71,13 +73,13 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
         getContext().registerReceiver(receiver, new IntentFilter(TRENDING_INTENT));
 
 
-       /* NewsDataTask asyncTask = new NewsDataTask(getContext());
+        NewsDataTask asyncTask = new NewsDataTask(getContext(),0,data);
         asyncTask.delegate = this;
-        asyncResponse=this;*/
+        asyncResponse=this;
 
 
         if(isNetworkAvailable()){
-            //asyncTask.execute("trending");
+            asyncTask.execute("trending");
             Log.e(this.toString(),"1");
             Intent intent=new Intent(getContext(),LoadDataBasedOnSelection.class);
             intent.putExtra(sortBy, popular);
@@ -86,7 +88,7 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
         }
         else{
             Toast.makeText(getContext(),"Internet connectivity is not available loading local data.",Toast.LENGTH_SHORT).show();
-            //asyncTask.execute("trending");
+            asyncTask.execute("trending");
         }
 
         adapter = new RecyclerViewAdapter(data, getContext(),this,2);
@@ -101,6 +103,11 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
                 //last thing to do..
                 //fetch only 50 records from DB at a time to insert into list
                 // and load more recored here.. 50 each
+                pageNo=page;
+                Log.e("Page","**************************************************");
+                NewsDataTask asyncTask = new NewsDataTask(context,page,data);
+                asyncTask.delegate = asyncResponse;
+                asyncTask.execute("trending");
 
             }
         };
@@ -125,7 +132,7 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
     @Override
     public void updateUI(Context context) {
         Log.e("MainActivity2 Boradca","called");
-        NewsDataTask asyncTask = new NewsDataTask(context);
+        NewsDataTask asyncTask = new NewsDataTask(context,0,data);
         asyncTask.delegate = this;
         asyncTask.execute("trending");
     }
@@ -137,13 +144,22 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
 
     @Override
     public void processFinish(NewsDataTask asyncTask) {
-        data=asyncTask.simpleJsonNewsData;
+        data.addAll(asyncTask.simpleJsonNewsData);
         if(data.isEmpty()){
             loader.setVisibility(View.VISIBLE);
         }
         else{
             adapter.addAll(data);
             loader.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void processFinish2(NewsDataTask asyncTask) {
+        if(!asyncTask.simpleJsonNewsData.isEmpty()){
+            data.addAll(asyncTask.simpleJsonNewsData);
+            Log.e("Calling Add all","Addall2()");
+            adapter.addAll2(asyncTask.simpleJsonNewsData);
         }
     }
 
@@ -162,7 +178,7 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            NewsDataTask asyncTask = new NewsDataTask(getContext());
+            NewsDataTask asyncTask = new NewsDataTask(getContext(),pageNo,data);
             asyncTask.delegate = this;
             asyncTask.execute("trending");
         }

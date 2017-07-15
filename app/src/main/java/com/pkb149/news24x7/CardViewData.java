@@ -2,6 +2,7 @@ package com.pkb149.news24x7;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 /**
  * Created by CoderGuru on 24-06-2017.
@@ -155,4 +156,5 @@ public class CardViewData implements Parcelable{
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
+
 }

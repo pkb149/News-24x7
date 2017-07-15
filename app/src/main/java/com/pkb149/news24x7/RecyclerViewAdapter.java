@@ -101,6 +101,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     cardViewDatas.get(position).setSave(R.drawable.saved);
                     Integer[] integer={cardViewDatas.get(position).getId(),1,callingFragment,cardViewDatas.get(position).getTable()};
                     Log.e("Id:",integer[0].toString());
+                    Log.e("time:",cardViewDatas.get(position).getPublishedAt());
                     writeToSavedTableThread asyncTask = new writeToSavedTableThread(view.getContext());
                     asyncTask.execute(integer);
                     notifyDataSetChanged();
@@ -111,6 +112,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     cardViewDatas.get(position).setSave(R.drawable.save);
                     Integer[] integer={cardViewDatas.get(position).getId(),0,callingFragment,cardViewDatas.get(position).getTable()};
                     Log.e("Id:",integer[0].toString());
+                    Log.e("time:",cardViewDatas.get(position).getPublishedAt());
                     writeToSavedTableThread asyncTask = new writeToSavedTableThread(view.getContext());
                     asyncTask.execute(integer);
                     notifyDataSetChanged();
@@ -151,13 +153,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // Add a list of items
     public void addAll(List<CardViewData>  data) {
+        cardViewDatas.addAll(0,data);
+        //cardViewDatas.clear();
+        //cardViewDatas.addAll(data);
+        notifyDataSetChanged();
+    }
+
+
+    public void addAll2(List<CardViewData>  data) {
+        /*if(!cardViewDatas.contains(data.get(0))){}
+            cardViewDatas.add(0,data.get(0));*/
+        Log.e("data.size():",Integer.toString(data.size()));
+        cardViewDatas.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void addAll3(List<CardViewData>  data) {
         /*if(!cardViewDatas.contains(data.get(0))){}
             cardViewDatas.add(0,data.get(0));*/
         cardViewDatas.clear();
         cardViewDatas.addAll(data);
         notifyDataSetChanged();
     }
-
 
     class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 

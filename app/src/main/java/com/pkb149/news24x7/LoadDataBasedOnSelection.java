@@ -98,15 +98,14 @@ public class LoadDataBasedOnSelection extends IntentService {
                         cv.put(COLUMN_URL, simpleJsonNewsData.get(i).getUrl());
                         cv.put(COLUMN_URLTOIMAGE, simpleJsonNewsData.get(i).getUrlToImage());
                         if (sorting.equals(latest)) {
-                            Cursor check = mDb.rawQuery("SELECT * FROM news where createdDate ='" + dateStr + "'", null);
-
+                            Cursor check = mDb.rawQuery("SELECT * FROM news where urlToImage ='" + simpleJsonNewsData.get(i).getUrlToImage() + "'", null);
                             if (check.getCount() == 0) {
                                 mDb.insert(TABLE_NAME, null, cv);
                                 Log.e(getApplicationContext().toString(), "Written in Local DB");
                             }
                         } else if (sorting.equals(popular)) {
                             //code to update trending table
-                            Cursor check = mDb.rawQuery("SELECT * FROM trending where createdDate ='" + dateStr + "'", null);
+                            Cursor check = mDb.rawQuery("SELECT * FROM trending where urlToImage ='" + simpleJsonNewsData.get(i).getUrlToImage() + "'", null);
                             if (check.getCount() == 0) {
                                 mDb.insert(TABLE_NAME_TRENDING, null, cv);
                                 Log.e(getApplicationContext().toString(), "Written in Local DB");

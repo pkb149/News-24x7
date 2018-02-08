@@ -73,7 +73,7 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
         getContext().registerReceiver(receiver, new IntentFilter(TRENDING_INTENT));
 
 
-        NewsDataTask asyncTask = new NewsDataTask(getContext(),0,data);
+        NewsDataTask asyncTask = new NewsDataTask(getContext());
         asyncTask.delegate = this;
         asyncResponse=this;
 
@@ -103,12 +103,12 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
                 //last thing to do..
                 //fetch only 50 records from DB at a time to insert into list
                 // and load more recored here.. 50 each
-                pageNo=page;
+                /*pageNo=page;
                 Log.e("Page","**************************************************");
                 NewsDataTask asyncTask = new NewsDataTask(context,page,data);
                 asyncTask.delegate = asyncResponse;
                 asyncTask.execute("trending");
-
+                */
             }
         };
         scrollListener=endlessRecyclerViewScrollListener;
@@ -132,7 +132,7 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
     @Override
     public void updateUI(Context context) {
         Log.e("MainActivity2 Boradca","called");
-        NewsDataTask asyncTask = new NewsDataTask(context,0,data);
+        NewsDataTask asyncTask = new NewsDataTask(context);
         asyncTask.delegate = this;
         asyncTask.execute("trending");
     }
@@ -144,22 +144,13 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
 
     @Override
     public void processFinish(NewsDataTask asyncTask) {
-        data.addAll(asyncTask.simpleJsonNewsData);
+        data=asyncTask.simpleJsonNewsData;
         if(data.isEmpty()){
             loader.setVisibility(View.VISIBLE);
         }
         else{
             adapter.addAll(data);
             loader.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    @Override
-    public void processFinish2(NewsDataTask asyncTask) {
-        if(!asyncTask.simpleJsonNewsData.isEmpty()){
-            data.addAll(asyncTask.simpleJsonNewsData);
-            Log.e("Calling Add all","Addall2()");
-            adapter.addAll2(asyncTask.simpleJsonNewsData);
         }
     }
 
@@ -178,7 +169,7 @@ public class MainActivityTab2 extends Fragment implements InterfaceToUpdateUiOfT
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            NewsDataTask asyncTask = new NewsDataTask(getContext(),pageNo,data);
+            NewsDataTask asyncTask = new NewsDataTask(getContext());
             asyncTask.delegate = this;
             asyncTask.execute("trending");
         }

@@ -153,24 +153,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // Add a list of items
     public void addAll(List<CardViewData>  data) {
-        cardViewDatas.addAll(0,data);
-        //cardViewDatas.clear();
-        //cardViewDatas.addAll(data);
-        notifyDataSetChanged();
-    }
-
-
-    public void addAll2(List<CardViewData>  data) {
-        /*if(!cardViewDatas.contains(data.get(0))){}
-            cardViewDatas.add(0,data.get(0));*/
-        Log.e("data.size():",Integer.toString(data.size()));
-        cardViewDatas.addAll(data);
-        notifyDataSetChanged();
-    }
-
-    public void addAll3(List<CardViewData>  data) {
-        /*if(!cardViewDatas.contains(data.get(0))){}
-            cardViewDatas.add(0,data.get(0));*/
         cardViewDatas.clear();
         cardViewDatas.addAll(data);
         notifyDataSetChanged();

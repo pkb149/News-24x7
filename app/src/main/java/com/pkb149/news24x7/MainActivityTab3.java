@@ -127,7 +127,7 @@ public class MainActivityTab3 extends Fragment implements AsyncResponseTab3, Rec
             //addAll clears and adds all and it calles notifydatasetchanged()
         }
         else{
-            adapter.addAll3(data);
+            adapter.addAll(data);
         }
     }
 

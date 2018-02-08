@@ -36,15 +36,11 @@ public class NewsDataTask extends AsyncTask<String, Void, List<CardViewData>> {
     List<CardViewData> simpleJsonNewsData;
     Context context;
     private SQLiteDatabase mDb;
-    int page;
-    private List <CardViewData> data;
 
 
-    public NewsDataTask(Context context, int page, List<CardViewData> data){
+    public NewsDataTask(Context context){
 
         this.context=context;
-        this.page=page;
-        this.data=data;
 
     }
 
@@ -54,7 +50,7 @@ public class NewsDataTask extends AsyncTask<String, Void, List<CardViewData>> {
         mDb = dbHelper.getWritableDatabase();
         simpleJsonNewsData=new ArrayList<CardViewData>();
         String str=params[0];
-        Cursor c = mDb.rawQuery("SELECT * FROM "+str+" order by createdDate desc LIMIT 1 OFFSET "+1*page, null);
+        Cursor c = mDb.rawQuery("SELECT * FROM "+str+" order by createdDate desc", null);
 
         if(c.getCount()!=0) {
             while (c.moveToNext()) {
@@ -75,19 +71,7 @@ public class NewsDataTask extends AsyncTask<String, Void, List<CardViewData>> {
                 cardViewData.setSaved(c.getInt(c.getColumnIndex(COLUMN_SAVED)));
                 cardViewData.setTable(c.getInt(c.getColumnIndex(COLUMN_TABLE)));
                 cardViewData.setPublishedAt(c.getString(c.getColumnIndex(COLUMN_CREATEDDATE)));
-                if(data.size()>0){
-                    boolean b=false;
-                    for(int i=0;i<data.size();i++){
-                        if(data.get(i).getId()==cardViewData.getId()){
-                            b=true;
-                        }
-                    }if(!b) {
-                        simpleJsonNewsData.add(cardViewData);
-                    }
-                }
-                else {
-                    simpleJsonNewsData.add(cardViewData);
-                }
+                simpleJsonNewsData.add(cardViewData);
 
             }
             mDb.close();
@@ -101,14 +85,7 @@ public class NewsDataTask extends AsyncTask<String, Void, List<CardViewData>> {
 
     @Override
     protected void onPostExecute(List<CardViewData> cardViewDatas) {
-        if(page==0){
             delegate.processFinish(this);
-        }
-        else
-        {
-            delegate.processFinish2(this);
-        }
-
     }
 }
 

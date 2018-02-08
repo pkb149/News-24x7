@@ -6,5 +6,5 @@ package com.pkb149.news24x7;
 
 public interface AsyncResponse {
             void processFinish(NewsDataTask asyncTask);
-            void processFinish2(NewsDataTask asyncTask);
+
 }

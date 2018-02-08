@@ -64,7 +64,7 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
         context=view.getContext();
         listener=this;
 
-        NewsDataTask asyncTask = new NewsDataTask(getContext(),0,data);
+        NewsDataTask asyncTask = new NewsDataTask(getContext());
         asyncTask.delegate = this;
         asyncResponse=this;
 
@@ -98,13 +98,13 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
                 //last thing to do..
                 //fetch only 50 records from DB at a time to insert into list
                 // and load more recored here.. 50 each
-                pageNo=page;
+                /*pageNo=page;
                 Log.e("Page","**************************************************");
                 Log.e("Page Number: ",Integer.toString(page));
                 NewsDataTask asyncTask = new NewsDataTask(context,page,data);
                 asyncTask.delegate = asyncResponse;
                 asyncTask.execute("news");
-
+                */
             }
         };
         scrollListener=endlessRecyclerViewScrollListener;
@@ -125,7 +125,7 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
 
     @Override
     public void processFinish(NewsDataTask asyncTask) {
-        data.addAll(0,asyncTask.simpleJsonNewsData);
+        data=asyncTask.simpleJsonNewsData;
         if(data.isEmpty()){
             Toast.makeText(getContext(),"No Local Data, Please Wait till we load data from Internet.",Toast.LENGTH_SHORT).show();
             loader.setVisibility(View.VISIBLE);
@@ -133,20 +133,9 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
         else{
             loader.setVisibility(View.INVISIBLE);
             Log.e("Calling Add all","Addall()");
-            //adapter.addAll(data);
-            adapter.notifyDataSetChanged();
+            adapter.addAll(data);
         }
 
-    }
-
-    @Override
-    public void processFinish2(NewsDataTask asyncTask) {
-        if(!asyncTask.simpleJsonNewsData.isEmpty()){
-            data.addAll(asyncTask.simpleJsonNewsData);
-            Log.e("Calling Add all","Addall2()");
-            //adapter.addAll2(asyncTask.simpleJsonNewsData);
-            adapter.notifyDataSetChanged();
-        }
     }
 
     @Override
@@ -158,7 +147,7 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
     @Override
     public void updateUI(Context context) {
         Log.e("BR","called");
-        NewsDataTask asyncTask = new NewsDataTask(context,0,data);
+        NewsDataTask asyncTask = new NewsDataTask(context);
         asyncTask.delegate = this;
         asyncTask.execute("news");
         swipeRefreshLayout.setRefreshing(false);
@@ -181,7 +170,7 @@ public class MainActivityTab1 extends Fragment implements AsyncResponse, Recycle
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if(asyncResponse!=null) {
-              NewsDataTask asyncTask = new NewsDataTask(context,pageNo,data);
+              NewsDataTask asyncTask = new NewsDataTask(context);
                 asyncTask.delegate = asyncResponse;
                 asyncTask.execute("news");
             }
